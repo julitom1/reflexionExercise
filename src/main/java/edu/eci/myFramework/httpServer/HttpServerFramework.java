@@ -38,7 +38,7 @@ public class HttpServerFramework {
 		content.put("gif","image/gif");
 		content.put("htm","text/html");
 		content.put("html","text/html");
-		content.put("json","application/json");
+		content.put("json","application/javascript");
 		content.put("pdf","application/pdf");
 		content.put("png","image/png");
 		
@@ -108,7 +108,7 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 		BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
 		String inputLine;
 		ArrayList<String> request=new ArrayList<String>();
-		
+		DataOutputStream message=new DataOutputStream(outStream);
 		while ((inputLine = in.readLine()) != null) {
 			System.out.println("Received: " + inputLine);
 			request.add(inputLine);
@@ -127,18 +127,27 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 			//try {
 				//params = resourceURI.getQuery().split("&");
 			//}catch(Exception e) {}
-			String[] ls=resourceURI.getPath().split("/");
+			String ph=resourceURI.getPath();
+		
+			String[] ls=ph.split("/");
 			uri=ls[ls.length-1];
-			System.out.println(resourceURI.getPath());
-			String[] ur=uri.split("\\.");
 			
-			if(content.get(ur[1]).split("/")[0].equals("image")) {
-				
+			String[] ur=uri.split("\\.");
+			if(ur.length==1 && ls[1].equals("api")) {
+				String algo=ControllerAnotaton.run("/"+ls[2]);
+				System.out.println(algo);
+				out.println(filesHTML(algo));
+			}
+			
+			else if(content.get(ur[1]).split("/")[0].equals("image")) {
+				resourceURI.getPath().toString().replaceAll("/api","");
 				resourceImage(ur[0],ur[1],outStream);
-			}else {
-				
+			}
+			else{
+				resourceURI.getPath().toString().replaceAll("/api","");
 				//Object algo=ControllerAnotaton.run("/"+ur[0]);
 				//out.println(filesHTML(algo));
+				
 				resourceText(ur[0],ur[1],out);
 				
 			}
@@ -146,8 +155,10 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 			
 		}catch(Exception e) {
 			System.out.println("===");
-			Object algo=ControllerAnotaton.run("/");
+			String algo=ControllerAnotaton.run("/");
+			System.out.println(filesHTML(algo));
 			out.println(filesHTML(algo));
+			//message.write(filesHTML(algo).getBytes());
 		}
 			
 		out.close();
@@ -155,12 +166,30 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 		clientSocket.close();
 		
 	}
-	public String filesHTML(Object algo) {
-		return "HTTP/1.1 200 OK\r\n" 
+	public String filesHTML(String algo) {
+
+				
+		return "HTTP/1.1 200 OK \r\n" 
 			+ "Content-Type: text/html\r\n"
 			+ "\r\n"
-			+ "<h1>"+ algo + "</h1>";
+			+  "<img src=\"src/main/resources/image/" + algo + "\">";
 			
+	}
+	private String filesJson(String query) throws IOException {
+		try {
+			
+			return "HTTP/1.1 200 OK\r\n" 
+			+ "Content-Type: application/javascript\r\n"
+			+ "\r\n"
+			+ query;
+		}
+		catch(Exception e) {
+			
+		}
+		return "HTTP/1.1 200 OK\r\n" 
+				+ "Content-Type: application/javascript\r\n"
+				+ "\r\n";
+		
 	}
 
 }

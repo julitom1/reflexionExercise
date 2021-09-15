@@ -49,8 +49,8 @@ public class ControllerAnotaton {
 		
 	}
 	
-	public static Object buscarConParametros(String pagina) {
-		Object pag="";
+	public static String buscarConParametros(String pagina) {
+		String pag="";
 		try {
 			for(Class c:clasesApp) {
 				if(c.isAnnotationPresent(Controlador.class)) {
@@ -61,7 +61,7 @@ public class ControllerAnotaton {
 							String recibir = requestMapping.value();
 							if(recibir.equals(pagina)) {					
 								//Method me = c.getMethod(m.getName(), String[].class);
-								pag=m.invoke(null);
+								pag=m.invoke(null).toString();
 								
 							}
 						}
@@ -85,8 +85,8 @@ public class ControllerAnotaton {
 		return pag;
 		
 	}
-	public static Object run(String pagina) {
-		Object pag="";
+	public static String run(String pagina) {
+		String pag="";
 		
 			try {
 				for(Class c:clasesApp) {
@@ -97,7 +97,7 @@ public class ControllerAnotaton {
 								RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
 								String recibir = requestMapping.value();
 								if(recibir.equals(pagina)) {
-										pag= m.invoke(null);
+										pag= m.invoke(null).toString();
 									
 								}
 							}

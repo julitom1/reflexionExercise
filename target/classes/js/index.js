@@ -19,23 +19,27 @@ function avanzar(){
 function renderizar(){
 	$("#imagen").attr("src",IMAGENES[posicionActual]);
 }
-function imagenesConseguir(){
+function imagenesConseguir(callback){
 	console.log("data");
 	$.getJSON("/",function (data) {
-			console.log("data2");
-			console.log(data);
+			callback(data);
 						
 		}
 	);
 }
+function exc(data){
+	console.log("data2");
+	callback(data);
+}
 $(document).ready(function(){
 	
 	renderizar();
-	imagenesConseguir();
+	imagenesConseguir(exc);
 	console.log("sasad");
-	
 	$("#avanzar").click(function(){
+		imagenesConseguir(exc);
 		avanzar();
+		
 	});
 	$("#retroceder").click(function(){
 		retroceder();
