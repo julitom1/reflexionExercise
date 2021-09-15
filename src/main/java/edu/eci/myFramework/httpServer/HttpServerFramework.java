@@ -1,6 +1,9 @@
 package edu.eci.myFramework.httpServer;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.imageio.ImageIO;
 
 import edu.eci.myFramework.ControllerAnotaton;
 
@@ -85,6 +90,16 @@ public void start(Integer puerto) throws IOException, URISyntaxException {
  				+ "Content-Type: "+ content.get(key) + "\r\n"
 				+ "\r\n";
 	}
+public void resourceImage(String path,String extension,OutputStream outStream) throws IOException {
+		
+		BufferedImage image;
+		image = ImageIO.read(new File("src/main/resources/image/"+path+"."+extension));
+		ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+	 	DataOutputStream dataOutputStream= new DataOutputStream(outStream); 
+		ImageIO.write(image,extension, byteArrayOutputStream);
+		dataOutputStream.writeBytes(httpOk(extension));
+		dataOutputStream.write(byteArrayOutputStream.toByteArray());	
+	}
 
 	private void serveConnection(Socket clientSocket) throws IOException, URISyntaxException{
 		OutputStream outStream=clientSocket.getOutputStream();
@@ -103,15 +118,15 @@ public void start(Integer puerto) throws IOException, URISyntaxException {
 		}
 		String uriStr="";
 		String uri="";
-		String[] params=null;
+		//String[] params=null;
 		try {
 			
 			uriStr=request.get(0).split(" ")[1];
 		
 			URI resourceURI = new URI(uriStr);
-			try {
-				params = resourceURI.getQuery().split("&");
-			}catch(Exception e) {}
+			//try {
+				//params = resourceURI.getQuery().split("&");
+			//}catch(Exception e) {}
 			String[] ls=resourceURI.getPath().split("/");
 			uri=ls[ls.length-1];
 			System.out.println(resourceURI.getPath());
@@ -119,18 +134,19 @@ public void start(Integer puerto) throws IOException, URISyntaxException {
 			
 			if(content.get(ur[1]).split("/")[0].equals("image")) {
 				
-				//resourceImage(ur[0],ur[1],outStream);
+				resourceImage(ur[0],ur[1],outStream);
 			}else {
-				System.out.println(ur[0]);
-				String algo=ControllerAnotaton.run("/"+ur[0],params);
-				out.println(filesHTML(algo));
-				//resourceText(ur[0],ur[1],out);
+				
+				//Object algo=ControllerAnotaton.run("/"+ur[0]);
+				//out.println(filesHTML(algo));
+				resourceText(ur[0],ur[1],out);
 				
 			}
 			
 			
 		}catch(Exception e) {
-			String algo=ControllerAnotaton.run("/",params);
+			System.out.println("===");
+			Object algo=ControllerAnotaton.run("/");
 			out.println(filesHTML(algo));
 		}
 			
@@ -139,7 +155,7 @@ public void start(Integer puerto) throws IOException, URISyntaxException {
 		clientSocket.close();
 		
 	}
-	public String filesHTML(String algo) {
+	public String filesHTML(Object algo) {
 		return "HTTP/1.1 200 OK\r\n" 
 			+ "Content-Type: text/html\r\n"
 			+ "\r\n"

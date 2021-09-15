@@ -12,14 +12,11 @@ public class Controller {
 	}
 	
 	
+	
+	
 	@RequestMapping("/imagenes")
-	public static String obtenerImagenes() {
-		return "Greetings from Spring Boot777777!";
-	}
-	@Parametros(value = {"pokemon"})
-	@RequestMapping("/imageness")
-	public static String obtenerImagenes(Object parametros) {
-		return "Greetings from Spring Boot121212!";
+	public static String[] obtenerImagenes() {
+		return new String[] {"aa","dsd"};
 	}
 	
 }

@@ -13,7 +13,6 @@ public class AppWeb {
 	
 	@Comenzar
 	public static ArrayList<Class> aquiComienzo() {
-		System.out.println("###################################3");
 		ArrayList<Class> clases= new ArrayList<Class>();
 		clases.add(Controller.class);
 		return clases;

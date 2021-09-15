@@ -49,8 +49,8 @@ public class ControllerAnotaton {
 		
 	}
 	
-	public static String buscarConParametros(String pagina,String[] params) {
-		String pag="";
+	public static Object buscarConParametros(String pagina) {
+		Object pag="";
 		try {
 			for(Class c:clasesApp) {
 				if(c.isAnnotationPresent(Controlador.class)) {
@@ -59,8 +59,9 @@ public class ControllerAnotaton {
 						if (m.isAnnotationPresent(RequestMapping.class) && m.isAnnotationPresent(Parametros.class)) {
 							RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
 							String recibir = requestMapping.value();
-							if(recibir.equals(pagina)) {
-									pag=(String) m.invoke(params);
+							if(recibir.equals(pagina)) {					
+								//Method me = c.getMethod(m.getName(), String[].class);
+								pag=m.invoke(null);
 								
 							}
 						}
@@ -80,16 +81,12 @@ public class ControllerAnotaton {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		return pag;
 		
 	}
-	public static String run(String pagina,String[] params) {
-		String pag="";
-		if(params!=null) {
-			System.out.println("HELLO");
-			pag=buscarConParametros(pagina,params);
-		}else {
+	public static Object run(String pagina) {
+		Object pag="";
 		
 			try {
 				for(Class c:clasesApp) {
@@ -100,7 +97,7 @@ public class ControllerAnotaton {
 								RequestMapping requestMapping = m.getAnnotation(RequestMapping.class);
 								String recibir = requestMapping.value();
 								if(recibir.equals(pagina)) {
-										pag=(String) m.invoke(null);
+										pag= m.invoke(null);
 									
 								}
 							}
@@ -121,7 +118,7 @@ public class ControllerAnotaton {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		
 		return pag;
 	}
 }
