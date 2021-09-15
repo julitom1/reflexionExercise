@@ -157,7 +157,7 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 			System.out.println("===");
 			String algo=ControllerAnotaton.run("/");
 			System.out.println(filesHTML(algo));
-			out.println(filesHTML(algo));
+			out.println(defecto(algo));
 			//message.write(filesHTML(algo).getBytes());
 		}
 			
@@ -172,23 +172,25 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 		return "HTTP/1.1 200 OK \r\n" 
 			+ "Content-Type: text/html\r\n"
 			+ "\r\n"
-			+  "<img src=\"src/main/resources/image/" + algo + "\">";
+			+"<html>\r\n" + 
+			"	<head>\r\n" + 
+			"		<meta charset=\"UTF-8\">\r\n" + 
+			"		<title>Title of the document</title>\r\n" + 
+			"		<link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css\" rel=\"stylesheet\"/>\r\n" + 
+			"		<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\r\n" + 
+			"		<script src=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.bundle.min.js\"></script>\r\n" + 
+			"        <script src=\"otro.js\"></script>\r\n" + 
+			"	\r\n" + 
+			"	</head>"
+			+  "<img src=\"src/main/resources/image/" + algo + "\">"
+			+ "<button id=\"oprimir\" class=\"botonimagen1\"></button>";
 			
 	}
-	private String filesJson(String query) throws IOException {
-		try {
-			
-			return "HTTP/1.1 200 OK\r\n" 
-			+ "Content-Type: application/javascript\r\n"
-			+ "\r\n"
-			+ query;
-		}
-		catch(Exception e) {
-			
-		}
-		return "HTTP/1.1 200 OK\r\n" 
-				+ "Content-Type: application/javascript\r\n"
-				+ "\r\n";
+	private String defecto(String query){
+		return "HTTP/1.1 200 OK \r\n" 
+				+ "Content-Type: text/html\r\n"
+				+ "\r\n"
+				+  query;
 		
 	}
 
