@@ -182,8 +182,8 @@ public void resourceImage(String path,String extension,OutputStream outStream) t
 			"        <script src=\"otro.js\"></script>\r\n" + 
 			"	\r\n" + 
 			"	</head>"
-			+  "<img src=\"src/main/resources/image/" + algo + "\">"
-			+ "<button id=\"oprimir\" class=\"botonimagen1\"></button>";
+			+ "<button id=\"oprimir\" type=\"button\">IMAGEN RANDOM</button><br>\r\n"
+			+  "<img src=\"src/main/resources/image/" + algo + "\">";
 			
 	}
 	private String defecto(String query){

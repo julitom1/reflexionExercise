@@ -8,7 +8,7 @@ import edu.eci.myFramework.anotacion.RequestMapping;
 @Controlador
 public class Controller {
 	
-	static String[] imgs = new String[] {"1.jpg","demonio.jpg","game_over.png","muerta.jpg"};
+	static String[] imgs = new String[] {"1.jpg","demonio.jpg","game_over.png","muerta.jpg","fairy_tail.png","naruto.jpg","mikasa.jpg","inuyasha.jpg"};
 	
 	
 	@RequestMapping("/")
