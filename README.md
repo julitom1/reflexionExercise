@@ -2,7 +2,7 @@
 
 ### Descrpción
 
-Con el framework se logró crear la siguiente aplicación https://reflexionarep.herokuapp.com/api/imagenes, esta aplicación lo que hace es que al oprimir el boton sale una imagen al azar, estas imagenes estan guardadas en el disco y el nombre de las imagenes estan guardadas en la aplicación. El framework tiene la capacidad de leer imagenes .jpg, .js, .html, entre otros.
+Con el framework se logró crear la siguiente aplicación https://reflexionarep.herokuapp.com/api/imagenes y el metodo que se nos mostro en el moodle fue https://reflexionarep.herokuapp.com/, esta aplicación lo que hace es que al oprimir el boton sale una imagen al azar, estas imagenes estan guardadas en el disco y el nombre de las imagenes estan guardadas en la aplicación. El framework tiene la capacidad de leer imagenes .jpg, .js, .html, entre otros.
 
 ### Links de la aplicación desplegados en Heroku
 
