@@ -12,9 +12,6 @@ Con el framework se logró crear la siguiente aplicación https://reflexionarep.
 * [ js ](https://reflexionarep.herokuapp.com/index.js)
 * [css](https://reflexionarep.herokuapp.com/color_rojo.css) 
 
-### Diseño y Evaluacion
-
-Los diseños de la arquitectura y la evaluacion de la aplicación los encontraran [aqui](https://github.com/julitom1/ClientesyServidores/blob/main/src/main/resources/articulo.pdf)
 
 ### Autor
 
