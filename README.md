@@ -12,6 +12,13 @@ Con el framework se logró crear la siguiente aplicación https://reflexionarep.
 * [ js ](https://reflexionarep.herokuapp.com/index.js)
 * [css](https://reflexionarep.herokuapp.com/color_rojo.css) 
 
+### Conclusiones
+
+* Se aprendio a crear un framework por medio de la reflexión
+* Aprendimos a utilizar el framework para crear nuestras propias aplicaciones con él
+* Aprendimos el uso de anotaciones y como crearlas
+* Recordamos como usar el MIME y la lectura de diferentes archivos
+
 
 ### Autor
 
